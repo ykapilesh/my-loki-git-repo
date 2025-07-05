@@ -4,5 +4,16 @@ loki:
     enabled: true
     storageClassName: local-path
     size: 2Gi
+
+  config:
+    table_manager:
+      retention_deletes_enabled: true
+      retention_period: 2h
+
+  service:
+    type: NodePort
+    nodePort: 31000
+    port: 3100
+
 promtail:
   enabled: true
