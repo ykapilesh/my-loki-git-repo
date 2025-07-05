@@ -1,0 +1,8 @@
+loki:
+  auth_enabled: false
+  persistence:
+    enabled: true
+    storageClassName: local-path
+    size: 2Gi
+promtail:
+  enabled: true
