@@ -28,9 +28,6 @@ promtail:
     - name: varlogpods
       mountPath: /var/log/pods
       readOnly: true
-    - name: varlogcontainers
-      mountPath: /var/log/containers
-      readOnly: true
     - name: varlogjournal
       mountPath: /var/log/journal
       readOnly: true
@@ -39,9 +36,6 @@ promtail:
     - name: varlogpods
       hostPath:
         path: /var/log/pods
-    - name: varlogcontainers
-      hostPath:
-        path: /var/log/containers
     - name: varlogjournal
       hostPath:
         path: /var/log/journal
@@ -57,3 +51,12 @@ promtail:
           - source_labels: [__meta_kubernetes_pod_container_name]
             action: keep
             regex: .*
+      - job_name: systemd-journal
+        journal:
+          path: /var/log/journal
+          max_age: 12h
+          labels:
+            job: systemd-journal
+        relabel_configs:
+          - source_labels: ['__journal__systemd_unit']
+            target_label: 'unit'
