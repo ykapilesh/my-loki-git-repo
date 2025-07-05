@@ -15,5 +15,12 @@ loki:
     nodePort: 31000
     port: 3100
 
+loki-stack:
+  loki:
+    service:
+      type: NodePort
+      nodePort: 31000
+      port: 3100
+
 promtail:
   enabled: true
