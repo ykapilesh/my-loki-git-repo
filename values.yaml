@@ -24,6 +24,21 @@ loki-stack:
 
 promtail:
   enabled: true
+  extraVolumeMounts:
+    - name: varlogpods
+      mountPath: /var/log/pods
+      readOnly: true
+    - name: varlogcontainers
+      mountPath: /var/log/containers
+      readOnly: true
+
+  extraVolumes:
+    - name: varlogpods
+      hostPath:
+        path: /var/log/pods
+    - name: varlogcontainers
+      hostPath:
+        path: /var/log/containers
   config:
     scrape_configs:
       - job_name: kubernetes-pods-all
